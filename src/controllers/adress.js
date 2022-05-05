@@ -1,4 +1,5 @@
-
+const model = require('../models/adress')
+const mongoose = require('mongoose')
 
 exports.getInfo= async (req, res)=>{
     try{
@@ -13,6 +14,19 @@ exports.getInfo= async (req, res)=>{
 }
 
 exports.insertData =  async (req, res)=>{
-    const adress = req.body
-    res.send({adress})
+    const data = req.body
+    model.create(data, (err, docs) =>{
+        if(err){
+            res.status(422).send({error:'Error in insertData'})
+        }
+        else{
+            res.send({data:docs})
+        }
+    })
+}
+
+exports.showAdress = async (req,res)=>{
+    const add = await model.find()
+    res.send(add)
+    console.log(add)
 }
