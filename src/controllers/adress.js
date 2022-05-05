@@ -1,5 +1,7 @@
 const model = require('../models/adress')
 const mongoose = require('mongoose')
+const axios= require('axios');
+const { API_KEY} = process.env;
 
 exports.getInfo= async (req, res)=>{
     try{
@@ -11,6 +13,17 @@ exports.getInfo= async (req, res)=>{
         console.log(error,'error en el get')
     }
 
+}
+exports.blockTimeNumber = async(req, res) =>{
+    try{
+        let number= await axios.get(`https://api.etherscan.io/api?module=stats&action=chainsize&startdate=2019-02-01&enddate=2019-02-28&clienttype=geth&syncmode=default&offset=10&sort=asc&apikey=${API_KEY}`)
+        let response = number.data.result
+        //console.log(response)
+        res.json(response);
+    }
+    catch(err){
+        console.error(err, 'err in blockTimeNumber')
+    }
 }
 
 exports.insertData =  async (req, res)=>{
@@ -28,5 +41,4 @@ exports.insertData =  async (req, res)=>{
 exports.showAdress = async (req,res)=>{
     const add = await model.find()
     res.send(add)
-    console.log(add)
 }
