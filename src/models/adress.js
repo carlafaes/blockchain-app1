@@ -8,11 +8,10 @@ const adressSchema = new mongoose.Schema({
     },
     value:{
         type:String,
-        required: true,
+        
     },
     transactionIndex:{
         type: String,
-        required:true,
     }
 },
 {
