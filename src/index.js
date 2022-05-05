@@ -5,7 +5,7 @@ require('dotenv').config()
 
 const userRoutes = require('./routes/user')
 
-const { MONGODB_PASS, MONGODB_USER} = process.env;
+const { MONGODB_PASS, MONGODB_USER, DATABASE} = process.env;
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -37,7 +37,7 @@ app.get('/', (req,res) => {
 
 //mongodb connection
 mongoose
-.connect(`mongodb+srv://${MONGODB_USER}:${MONGODB_PASS}@cluster0.idcfk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`)
+.connect(`${DATABASE}`)
 .then(() => console.log('Connected to MongoDB Atlas'))
 .catch((error) => console.log(error));
 
