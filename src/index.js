@@ -32,6 +32,14 @@ app.use('/api', userRoutes)
 app.use(express.json())
 app.use(cors())
 
+
+//mongodb connection
+mongoose
+.connect(`${DATABASE}`)
+.then(() => console.log('Connected to MongoDB Atlas'))
+.catch((error) => console.log(error));
+app.listen(port,() => console.log('server listening on port ', port));
+
 //routes
 app.use('/', (req,res,next) => {
     res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
@@ -43,11 +51,3 @@ app.use('/', (req,res,next) => {
     res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
     next();
 });
-
-//mongodb connection
-mongoose
-.connect(`${DATABASE}`)
-.then(() => console.log('Connected to MongoDB Atlas'))
-.catch((error) => console.log(error));
-
-app.listen(port,() => console.log('server listening on port ', port));
