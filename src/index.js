@@ -6,7 +6,7 @@ const cors = require('cors');
 
 const userRoutes = require('./routes/user')
 
-const { MONGODB_PASS, MONGODB_USER, DATABASE} = process.env;
+const { MONGODB_PASS, MONGODB_USER, DATABASE,CORS} = process.env;
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -42,7 +42,7 @@ app.listen(port,() => console.log('server listening on port ', port));
 
 //routes
 app.use('/', (req,res,next) => {
-    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Origin", `${CORS}`); // update to match the domain you will make the request from
     res.header("Access-Control-Allow-Credentials", "true");
     res.header(
       "Access-Control-Allow-Headers",
